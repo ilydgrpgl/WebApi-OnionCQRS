@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebApi.Application.Interfaces.Repositories;
 using WebApi.Persistance.Context;
+using WebApi.Persistance.Repositories;
 
 namespace WebApi.Persistance
 {
@@ -11,6 +13,7 @@ namespace WebApi.Persistance
         {
            services.AddDbContext<AppDbContext>(opt=>
                 opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
         }
     }
 }
